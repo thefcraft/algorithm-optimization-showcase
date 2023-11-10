@@ -3,17 +3,24 @@
 #include <iostream>
 using namespace std;
 
+inline int max(int a, int b, int c) {
+    return (a > b) ? ((a > c) ? a : c) : ((b > c) ? b : c);
+}
+inline int min(int a, int b, int c) {
+    return (a < b) ? ((a < c) ? a : c) : ((b < c) ? b : c);
+}
+
 int maximum3(int arr[], int n){
     bool isZero = false;
     int result = arr[0];
 
-    int max1 = max(max(arr[0], arr[1]), arr[2]); // 2
-    int max3 = min(min(arr[0], arr[1]), arr[2]); // 0
-    int max2 = arr[0] + arr[1] + arr[2] - max1 - max3; // 1
+    int max1 = max(arr[0], arr[1], arr[2]);
+    int max3 = min(arr[0], arr[1], arr[2]);
+    int max2 = arr[0] + arr[1] + arr[2] - max1 - max3;
 
-    int min1 = max3; // 0
-    int min2 = max2; // 1
-    int min3 = max1; // 2
+    int min1 = max3;
+    int min2 = max2;
+    int min3 = max1;
 
     int maxNeg1 = 0;
     int maxNeg2 = 0;
@@ -39,8 +46,8 @@ int maximum3(int arr[], int n){
             else if (maxNeg2==0)maxNeg2=arr[i];
             else if (maxNeg3==0){
                 int x = maxNeg1, y = maxNeg2;
-                maxNeg1 = max(max(x, y), arr[i]);
-                maxNeg3 = min(min(x, y), arr[i]);
+                maxNeg1 = max(x, y, arr[i]);
+                maxNeg3 = min(x, y, arr[i]);
                 maxNeg2 = x + y + arr[i] - maxNeg1 - maxNeg3;
             }else{
                 if(arr[i] > maxNeg1) {maxNeg3 = maxNeg2; maxNeg2 = maxNeg1; maxNeg1 = arr[i];}
